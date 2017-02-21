@@ -1,0 +1,10 @@
+<h1> Ordered List of Tasks</h1>
+<hr>
+
+
+<ol>
+    @foreach(var item in @Model)
+    {
+    <li>@item.GetDescription() is due on @item.GetDeadline()</li>
+    }
+</ol>

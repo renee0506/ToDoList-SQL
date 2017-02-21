@@ -77,7 +77,6 @@ namespace ToDoList
 
         List<Task> testTaskList = new List<Task> {firstTask, secondTask};
         List<Task> resultTaskList = testCategory.GetTasks();
-
         Assert.Equal(testTaskList, resultTaskList);
     }
 

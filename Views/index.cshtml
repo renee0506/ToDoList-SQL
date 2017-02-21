@@ -1,10 +1,15 @@
-<h1>Create new task</h1>
-<form action="/new_task" method="post">
-  <label for="description">Task Description:</label>
-  <input type="text" name="location-taken">
-  <label for="deadline">Deadline:</label>
-  <input type="date" name="caption">
+<h1>Create new Category</h1>
+<form action="/new-category" method="post">
+  <label for="category-name">Category Name:</label>
+  <input type="text" name="category-name">
   <button type="submit">Submit</button>
 </form>
-<a href="/all_tasks">View all photos</a>
-<a href="/cleared">Clear All</a>
+<ul>
+    @foreach (var item in @Model)
+    {
+        <a href="/@item.GetId()/create-task"><li>@item.GetName()</li></a>
+    }
+</ul>
+
+<a href="/cleared">Clear All Categories</a>
+<a href="/sorted-tasks">View sorted tasks</a>

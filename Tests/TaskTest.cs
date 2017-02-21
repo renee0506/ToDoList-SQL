@@ -71,7 +71,6 @@ namespace ToDoList
     {
         Task firstTask = new Task("Mow the lawn", 1, "01-10-1990");
         Task secondTask = new Task("Mow the lawn", 1, "01-10-1990");
-        Console.WriteLine(firstTask);
 
         Assert.Equal(firstTask, secondTask);
     }

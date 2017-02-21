@@ -66,6 +66,37 @@ namespace ToDoList
     {
         _categoryId = newCategoryId;
     }
+    public static List<Task> SortDeadlines()
+    {
+        List<Task> sortedTasks = new List<Task>{};
+        SqlConnection conn = DB.Connection();
+        conn.Open();
+
+        SqlCommand cmd = new SqlCommand("SELECT * FROM tasks ORDER BY deadline;", conn);
+        SqlDataReader rdr = cmd.ExecuteReader();
+
+        while (rdr.Read())
+        {
+            int taskId = rdr.GetInt32(0);
+            string taskDescription = rdr.GetString(1);
+            int taskCategoryId = rdr.GetInt32(2);
+            string taskDeadline = rdr.GetDateTime(3).ToString("MM-dd-yyyy");
+            Task newTask = new Task(taskDescription, taskCategoryId, taskDeadline, taskId);
+            sortedTasks.Add(newTask);
+        }
+
+        if (rdr != null)
+        {
+          rdr.Close();
+        }
+        if (conn != null)
+        {
+          conn.Close();
+        }
+
+
+        return sortedTasks;
+    }
 
     public static List<Task> GetAll()
     {
@@ -82,7 +113,7 @@ namespace ToDoList
         int taskId = rdr.GetInt32(0);
         string taskDescription = rdr.GetString(1);
         int taskCategoryId = rdr.GetInt32(2);
-        string taskDeadline = rdr.GetDateTime(3).ToString("yyyy-MM-dd");
+        string taskDeadline = rdr.GetDateTime(3).ToString("MM-dd-yyyy");
         Task newTask = new Task(taskDescription, taskCategoryId, taskDeadline, taskId);
         allTasks.Add(newTask);
       }
@@ -167,7 +198,7 @@ namespace ToDoList
         foundTaskId = rdr.GetInt32(0);
         foundTaskDescription = rdr.GetString(1);
         foundTaskCategoryId = rdr.GetInt32(2);
-        foundTaskDeadline = rdr.GetDateTime(3).ToString("yyyy-MM-dd");
+        foundTaskDeadline = rdr.GetDateTime(3).ToString("MM-dd-yyyy");
       }
       Task foundTask = new Task(foundTaskDescription, foundTaskCategoryId, foundTaskDeadline, foundTaskId);
 
