@@ -25,20 +25,12 @@ namespace ToDoList
       Assert.Equal(0, result);
     }
 
-    [Fact]
-    public void Test_Equal_ReturnsTrueIfDescriptionAreTheSame()
-    {
-      Task firstTask = new Task("Mow the lawn");
-      Task secondTask = new Task("Mow the lawn");
-
-      Assert.Equal(firstTask, secondTask);
-    }
 
     [Fact]
     public void  Test_Save_SavesToDatabase()
     {
      //Arrange
-      Task testTask = new Task ("Mow the lawn");
+      Task testTask = new Task ("Mow the lawn", 1);
 
       //Act
       testTask.Save();
@@ -52,7 +44,7 @@ namespace ToDoList
     public void Test_Save_AssignsIdToObject()
     {
       //Arrange
-      Task testTask = new Task ("Mow the lawn");
+      Task testTask = new Task ("Mow the lawn", 1);
       //Act
       testTask.Save();
       Task savedTask = Task.GetAll()[0];
@@ -67,12 +59,22 @@ namespace ToDoList
     [Fact]
     public void Test_Find_FindsTaskInDatabase()
     {
-      Task testTask = new Task("Mow the lawn");
+      Task testTask = new Task("Mow the lawn", 1);
       testTask.Save();
 
       Task foundTask = Task.Find(testTask.GetId());
 
       Assert.Equal(testTask, foundTask);
     }
+    [Fact]
+    public void Test_EqualOverrideTrueForSameDescription()
+    {
+        Task firstTask = new Task("Mow the lawn", 1);
+        Task secondTask = new Task("Mow the lawn", 1);
+
+        Assert.Equal(firstTask, secondTask);
+    }
+
+
   }
 }
