@@ -22,7 +22,9 @@ namespace InventoryModule
       };
       Get["/{id}/create-task"] = parameters => {
           Category selected =  Category.Find(parameters.id);
-          return View["create_task.cshtml", selected];
+          List<Task> taskList = selected.GetTasks();
+          Dictionary<string, object> model = new Dictionary<string, object>{{"category", selected}, {"taskList", taskList}};
+          return View["create_task.cshtml", model];
       };
       Post["/{id}/new-task"] = parameters => {
           string description = Request.Form["description"];
@@ -33,8 +35,12 @@ namespace InventoryModule
       };
       Get["/sorted-tasks"] = _ => {
           List<Task> sortedTasks = Task.SortDeadlines();
-          Console.WriteLine(sortedTasks[0].GetDescription());
           return View["sorted-tasks.cshtml", sortedTasks];
+      };
+      Get["/category-cleared"] = _ => {
+          Category.DeleteAll();
+          List<Category> newCategory = Category.GetAll();
+          return View["index.cshtml", newCategory];
       };
     }
   }

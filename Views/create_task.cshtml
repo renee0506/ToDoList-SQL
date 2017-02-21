@@ -1,9 +1,9 @@
 
-<h1>Create new @Model.GetName() task</h1>
+<h1>Create new @Model["category"].GetName() task</h1>
 <hr>
 
 
-<form action="/@Model.GetId()/new-task" method="post">
+<form action="/@Model["category"].GetId()/new-task" method="post">
   <label for="description">Task Description:</label>
   <input type="text" name="description">
   <label for="deadline">Deadline:</label>
@@ -11,6 +11,12 @@
   <button type="submit">Submit</button>
 </form>
 
+<ul>
+    @foreach(var task in @Model["taskList"])
+    {
+        <li>@task.GetDescription() is due on @task.GetDeadline()</li>
+    }
+</ul>
 
-<a href="/all_tasks">View all tasks</a>
-<a href="/cleared">Clear All</a>
+
+<a href="/">back to index</a>

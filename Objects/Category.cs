@@ -51,6 +51,8 @@ namespace ToDoList
       conn.Open();
       SqlCommand cmd = new SqlCommand("DELETE FROM categories;", conn);
       cmd.ExecuteNonQuery();
+      cmd = new SqlCommand("DELETE FROM tasks;", conn);
+      cmd.ExecuteNonQuery();  
       conn.Close();
     }
 
